@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Галерея Инспирации</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Галерея Инспирации</h1>
+  <div class="controls">
+    <input type="text" id="search" placeholder="Поиск по тегам...">
+    <button id="addImageBtn">Добавить картинку</button>
+  </div>
+  <div id="tagFilters" class="filters"></div>
+  <div id="gallery" class="gallery"></div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h2>Добавить изображение</h2>
+      <form id="addImageForm">
+        <label>
+          Ссылка на картинку (URL):
+          <input type="url" id="imageUrl" required>
+        </label>
+        <label>
+          Теги (через запятую):
+          <input type="text" id="imageTags" required>
+        </label>
+        <button type="submit">Добавить</button>
+      </form>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

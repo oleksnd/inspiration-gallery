@@ -1,0 +1,124 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f3f4f6;
+  margin: 0;
+  padding: 0 0 40px 0;
+}
+h1 {
+  text-align: center;
+  margin-top: 24px;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px 0;
+}
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.filters button {
+  padding: 6px 14px;
+  border: none;
+  background: #e2e8f0;
+  color: #333;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.filters button.active {
+  background: #6366f1;
+  color: #fff;
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  width: 90vw;
+  margin: 0 auto;
+  max-width: 1100px;
+}
+.gallery .item {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.gallery img {
+  max-width: 100%;
+  max-height: 160px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  background: #f1f5f9;
+}
+.tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.tag {
+  background: #e0e7ff;
+  color: #3730a3;
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-size: 13px;
+}
+.modal {
+  position: fixed;
+  z-index: 2;
+  left: 0; top: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.27);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal.hidden {
+  display: none;
+}
+.modal-content {
+  background: #fff;
+  padding: 28px 22px 18px 22px;
+  border-radius: 7px;
+  min-width: 320px;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+}
+.close {
+  position: absolute;
+  top: 9px;
+  right: 14px;
+  font-size: 24px;
+  color: #aaa;
+  cursor: pointer;
+}
+.modal form label {
+  display: block;
+  margin-bottom: 13px;
+}
+.modal form input {
+  width: 100%;
+  padding: 7px;
+  margin-top: 4px;
+  margin-bottom: 5px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 16px;
+}
+.modal form button {
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
