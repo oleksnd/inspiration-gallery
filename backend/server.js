@@ -62,3 +62,28 @@ app.post('/api/images', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// Удалить изображение по ID
+app.delete('/api/images/:id', (req, res) => {
+  const id = req.params.id;
+  fs.readFile(DATA_FILE, 'utf8', (err, data) => {
+    if (err && err.code !== 'ENOENT') {
+      return res.status(500).json({ error: 'Ошибка чтения данных' });
+    }
+    let images = [];
+    if (data) {
+      try {
+        images = JSON.parse(data);
+      } catch (e) {
+        return res.status(500).json({ error: 'Ошибка парсинга данных' });
+      }
+    }
+    const newImages = images.filter(img => String(img.id) !== String(id));
+    fs.writeFile(DATA_FILE, JSON.stringify(newImages, null, 2), (err) => {
+      if (err) {
+        return res.status(500).json({ error: 'Ошибка записи данных' });
+      }
+      res.status(200).json({ message: 'Изображение удалено успешно' });
+    });
+  });
+});

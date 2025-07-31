@@ -14,6 +14,11 @@ const addImageForm = document.getElementById('addImageForm');
 const imageUrlInput = document.getElementById('imageUrl');
 const imageTagsInput = document.getElementById('imageTags');
 
+// --- ЭЛЕМЕНТЫ ЛАЙТБОКСА ---
+const lightboxElem = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxCloseBtn = document.querySelector('.lightbox-close');
+
 // --- СОСТОЯНИЕ ПРИЛОЖЕНИЯ ---
 let allImages = []; // Все изображения, загруженные с сервера
 let activeTag = "Все";
@@ -97,12 +102,12 @@ function renderGallery() {
   }
 
   galleryElem.innerHTML = filteredImages.map(img => `
-    <div class="item">
+    <div class="item" data-id="${img.id}">
       <img 
         src="${img.src}" 
         alt="Теги: ${img.tags.join(', ')}" 
         loading="lazy" 
-        onerror="this.parentElement.style.display='none'"
+        onerror="this.closest('.item').style.display='none'; deleteImage(${img.id});"
       >
       <div class="tags">
         ${img.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
@@ -125,6 +130,27 @@ closeModalBtn.onclick = () => modalElem.classList.add('hidden');
 modalElem.onclick = (e) => {
   if (e.target === modalElem) modalElem.classList.add('hidden');
 };
+
+// --- ЛАЙТБОКС ---
+galleryElem.addEventListener('click', function(e) {
+  const target = e.target;
+  if (target.tagName === 'IMG') {
+    lightboxImg.src = target.src;
+    lightboxElem.style.display = 'flex';
+  }
+});
+
+lightboxCloseBtn.addEventListener('click', function() {
+  lightboxElem.style.display = 'none';
+  lightboxImg.src = '';
+});
+
+lightboxElem.addEventListener('click', function(e) {
+  if (e.target === lightboxElem) {
+    lightboxElem.style.display = 'none';
+    lightboxImg.src = '';
+  }
+});
 
 // Форма добавления (тоже с async/await для чистоты кода)
 addImageForm.onsubmit = async function (e) {
@@ -176,3 +202,17 @@ searchInput.oninput = function () {
 // --- ЗАПУСК ПРИЛОЖЕНИЯ ---
 // Когда HTML-документ полностью загружен, начинаем загрузку изображений
 window.onload = fetchImages;
+
+// --- Удаление изображения по ID ---
+async function deleteImage(id) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/images/${id}`, {
+      method: 'DELETE'
+    });
+    if (!res.ok) throw new Error('Ошибка удаления изображения');
+    console.log(`Изображение ${id} удалено`);
+  } catch (err) {
+    console.error('Ошибка при удалении изображения:', err);
+  }
+}
+window.deleteImage = deleteImage;
