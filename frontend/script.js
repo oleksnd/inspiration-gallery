@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://your-backend-on-render.com"; // ← укажите свой URL после деплоя!
+const API_BASE_URL = "https://inspiration-gallery.onrender.com"; // ← укажите свой URL после деплоя!
 
 const galleryElem = document.getElementById('gallery');
 const filtersElem = document.getElementById('tagFilters');
